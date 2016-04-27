@@ -1,27 +1,27 @@
-var cats = {};
+var jellos = {};
 var count = 0;
 
 Leap.loop(function(frame) {
 
   frame.hands.forEach(function(hand, index) {
     
-    var cat = ( cats[index] || (cats[index] = new Cat()) );
-    cat.setTransform(hand.screenPosition(), hand.roll());
+    var jello = ( jellos[index] || (jellos[index] = new jello()) );
+    jello.setTransform(hand.screenPosition(), hand.roll());
     
     //jello gets smaller when you clench fist
-    document.getElementById("cat_"+index).style.width = 50 - (hand.grabStrength*100)/2 +'%';
+    document.getElementById("jello_"+index).style.width = 50 - (hand.grabStrength*100)/2 +'%';
     
   });
   
 }).use('screenPosition', {scale: 0.25});
 
 
-var Cat = function() {
-  var cat = this;
+var jello = function() {
+  var jello = this;
   var img = document.createElement('img');
-  img.id = "cat_" + count;
+  img.id = "jello_" + count;
   if(count > 0){
-    cats[count] = new Cat();
+    jellos[count] = new jello();
   }
   
   count++;
@@ -30,11 +30,11 @@ var Cat = function() {
   img.src = 'jello.png';
   img.style.position = 'absolute';
   img.onload = function () {
-    cat.setTransform([window.innerWidth/2,window.innerHeight/2], 0);
+    jello.setTransform([window.innerWidth/2,window.innerHeight/2], 0);
     document.body.appendChild(img);
   }
   
-  cat.setTransform = function(position, rotation) {
+  jello.setTransform = function(position, rotation) {
 
     img.style.left = position[0] - img.width  / 2 + 'px';
     img.style.top  = position[1] - img.height / 2 + 'px';
@@ -48,7 +48,7 @@ var Cat = function() {
 
 };
 
-cats[0] = new Cat();
+jellos[0] = new jello();
 
-// This allows us to move the cat even whilst in an iFrame.
+// This allows us to move the jello even whilst in an iFrame.
 Leap.loopController.setBackground(true)
