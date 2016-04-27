@@ -5,7 +5,7 @@ Leap.loop(function(frame) {
 
   frame.hands.forEach(function(hand, index) {
     
-    var jello = ( jellos[index] || (jellos[index] = new jello()) );
+    var jello = ( jellos[index] || (jellos[index] = new Jello()) );
     jello.setTransform(hand.screenPosition(), hand.roll());
     
     //jello gets smaller when you clench fist
@@ -16,7 +16,7 @@ Leap.loop(function(frame) {
 }).use('screenPosition', {scale: 0.25});
 
 
-var jello = function() {
+var Jello = function() {
   var jello = this;
   var img = document.createElement('img');
   img.id = "jello_" + count;
@@ -48,7 +48,7 @@ var jello = function() {
 
 };
 
-jellos[0] = new jello();
+jellos[0] = new Jello();
 
 // This allows us to move the jello even whilst in an iFrame.
 Leap.loopController.setBackground(true)
