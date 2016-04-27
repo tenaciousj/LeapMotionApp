@@ -1,11 +1,15 @@
 var cats = {};
+var count = 0;
 
 Leap.loop(function(frame) {
 
   frame.hands.forEach(function(hand, index) {
     
-    var cat = ( cats[index] || (cats[index] = new Cat()) );    
+    var cat = ( cats[index] || (cats[index] = new Cat()) );
     cat.setTransform(hand.screenPosition(), hand.roll());
+    
+    //jello gets smaller when you clench fist
+    document.getElementById("cat_"+index).style.width = 50 - (hand.grabStrength*100)/2 +'%';
     
   });
   
@@ -15,7 +19,15 @@ Leap.loop(function(frame) {
 var Cat = function() {
   var cat = this;
   var img = document.createElement('img');
-  img.src = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/109794/cat_2.png';
+  img.id = "cat_" + count;
+  if(count > 0){
+    cats[count] = new Cat();
+  }
+  
+  count++;
+
+
+  img.src = 'jello.png';
   img.style.position = 'absolute';
   img.onload = function () {
     cat.setTransform([window.innerWidth/2,window.innerHeight/2], 0);
